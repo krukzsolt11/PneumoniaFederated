@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  server:
+    build: ./server
+    ports:
+      - 50051:50051
+    volumes:
+      - <volume_name>:/app/data
+  client1:
+    build: ./client1
+    environment:
+      SERVER_ADDRESS: server:50051
+  client2:
+    build: ./client2
+    environment:
+      SERVER_ADDRESS: server:50051
+  web:
+    build: ./web
+    ports:
+      - 8080:80
+    volumes:
+      - <volume_name>:/app/data
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
